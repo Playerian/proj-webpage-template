@@ -1,7 +1,162 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 3-2 here
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>  
+    div.padded {  
+      padding-top: 0px;  
+      padding-right: 100px;  
+      padding-bottom: 0.25in;  
+      padding-left: 100px;  
+    }  
+  </style> 
+<title>Jacky Kwok, Liwei Huang  |  CS 184</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+<body>
+<br />
+<h1 align="middle">Assignment 3-2: Additional Features to PathTracer</h1>
+    <h2 align="middle">Jacky Kwok, Liwei Huang</h2>
+    <h2 align="middle"><a href="https://playerian.github.io/proj-webpage-template/proj3-2/index.html">LINK</a></h2>
+
+    <div class="padded">
+
+        
+        * NOTE: For this project, you will choose TWO out of the four given parts to complete. One of those parts must be Part 1 or Part 2. In other words, you can choose any combination of two parts except the pair (Part 3, Part 4).
+
+
+        <h3 align="middle">Part 1. Mirror and Glass Materials</h3>
+
+        <p><b>
+            Show a sequence of six images of scene `CBspheres.dae` rendered with `max_ray_depth` set to 0, 1, 2, 3, 4, 5, and 100. The other settings should be at least 64 samples per pixel and 4 samples per light. Make sure to include all screenshots.
+        </b></p>
+        <div align="middle">
+          <table style="width:100%">
+            <tr align="center">
+              <td>
+                <img src="images/sphere_256_4_0.png" align="middle" width="400px"/>
+                <figcaption>max_ray_depth (bounces) = 0</figcaption>
+              </td>
+              <td>
+                <img src="images/sphere_256_4_1.png" align="middle" width="400px"/>
+                <figcaption>max_ray_depth (bounces) = 1</figcaption>
+              </td>
+            </tr>
+            <tr align="center">
+              <td>
+                <img src="images/sphere_256_4_2.png" align="middle" width="400px"/>
+                <figcaption>max_ray_depth (bounces) = 2</figcaption>
+              </td>
+              <td>
+                <img src="images/sphere_256_4_3.png" align="middle" width="400px"/>
+                <figcaption>max_ray_depth (bounces) = 3</figcaption>
+              </td>
+            </tr>
+            <tr align="center">
+              <td>
+                <img src="images/sphere_256_4_4.png" align="middle" width="400px"/>
+                <figcaption>max_ray_depth (bounces) = 4</figcaption>
+              </td>
+              <td>
+                <img src="images/sphere_256_4_5.png" align="middle" width="400px"/>
+                <figcaption>max_ray_depth (bounces) = 5</figcaption>
+              </td>
+            </tr>
+            <tr align="center">
+              <td>
+                <img src="images/sphere_256_4_100.png" align="middle" width="400px"/>
+                <figcaption>max_ray_depth (bounces) = 100</figcaption>
+              </td>
+
+            </tr>
+          </table>
+      </div>
+        <br>
+        <p><b>
+            Point out the new multibounce effects that appear in each image.  Explain how these bounce numbers relate to the particular effects that appear. Make sure to include all screenshots.
+        </b></p>
+        <p>
+          The light from the walls is reflected on the surface of the mirror sphere. Since light must first reach the surface and then bounce back, it requires at least two bounces, which explains why the mirror ball appears predominantly black until the second bounce. We can observe light source reflection in the picture of bounce 1 from the ceiling. When the number of bounces is large enough (>= bounce 2), it is possible to view the surroundings via the mirror ball since it precisely reflects light from the surroundings. The reflections enable us to view the walls and the other ball. <br><br>
+          Both reflection and refraction are present on the glass material, although reflection is far weaker than refraction. As explained in the previous paragraph, the glass ball is predominantly black in bounce 1, excluding the light source. In bounce 2, we can see the reflection of our surroundings, but it is still quite dark due to the fact that reflection is a minor feature of glass, which mostly reflects light via refraction. Since light must first enter the material, bounce to another side within the material, and then bounce out of the material for refraction to occur. Therefore, the glass ball appears predominantly black until the bounce 3 picture. In the bounce 3 image, the light has reflected three times, allowing us to see it. Because refraction is far brighter than reflection in glass, the dark reflection from bounce 2 is no longer visible. When the number of bounces is large enough (>= bounce 3), we may observe the surrounding (the blue wall on the right-hand side) on the left-hand side of the glass sphere.  <br><br>
+          The bounce 4, 5, and 100 screenshots are quite similar for both glass and mirror spheres, as the light has traversed through all components in the scene. The scene is brighter overall, and we can now observe the surroundings on both materials. <br>
+      
+        </p>
+        <br>
+        <br>
+
+
+        <h3 align="middle">Part 2. Microfacet Material</h3>
+        <p><b>
+            Show a screenshot sequence of 4 images of scene `CBdragon_microfacet_au.dae` rendered with $\alpha$ set to 0.005, 0.05, 0.25 and 0.5. The other settings should be at least 128 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Describe the differences between different images. Note that, to change the $\alpha$, just open the .dae file and search for `microfacet`.
+        </b></p>
+        <div align="middle">
+            <table style="width:100%">
+              <tr align="center">
+                <td>
+                  <img src="images/dragon_a_0.5.png" align="middle" width="400px"/>
+                  <figcaption>alpha = 0.5</figcaption>
+                </td>
+                <td>
+                  <img src="images/dragon_a_0.25.png" align="middle" width="400px"/>
+                  <figcaption>alpha = 0.25</figcaption>
+                </td>
+              </tr>
+              <tr align="center">
+                <td>
+                  <img src="images/dragon_a_0.05.png" align="middle" width="400px"/>
+                  <figcaption>alpha = 0.05</figcaption>
+                </td>
+                <td>
+                  <img src="images/dragon_a_0.005.png" align="middle" width="400px"/>
+                  <figcaption>alpha = 0.005</figcaption>
+                </td>
+              </tr>
+            </table>
+        </div>
+        <p>
+          With a smaller alpha, the dragon looks more glossy and more reflective. Looking at the image when alpha = 0.005, it can be seen that the right side of the dragon has a lot of blue lights that resemble the reflection on the blue wall. Then, as alpha increases, the blue light on the dragon becomes dimmer and dimmer, and the surface becomes more golden which is the color of the dragon itself. At alpha = 0.25, the reflection of the blue wall is very hard to see, and the dragon becomes more and more golden and its surface diffuses more. At alpha = 0.5, the blue reflective light is unrecognizable and the original golden color of the dragon is now shown instead of the reflective color on its surroundings.
+        </p>
+        <br>
+        <p><b>
+            Show two images of scene `CBbunny_microfacet_cu.dae` rendered using cosine hemisphere sampling (default) and your importance sampling. The sampling rate should be fixed at 64 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Briefly discuss their difference.
+        </b></p>
+        <div align="middle">
+            <table style="width:100%">
+              <tr align="center">
+                <td>
+                  <img src="images/bunny_hemisphere.png" align="middle" width="400px"/>
+                  <figcaption>cosine hemisphere sampling</figcaption>
+                </td>
+                <td>
+                  <img src="images/bunny_importance.png" align="middle" width="400px"/>
+                  <figcaption>importance sampling</figcaption>
+                </td>
+              </tr>
+            </table>
+        </div>
+        <p>
+          When using cosine hemisphere sampling with 128 samples per pixel, the overall image appears to be very noisy, many weird black and white dots appear throughout the bunny and the background. Using importance sampling decreases the noise by a great amount by sampling the important parts of the Beckman distribution which is used in defining the normal distribution of the microfacets. Although both cosine hemisphere sampling and importance sampling are correct, importance sampling converges faster to the optimal image, whereas the cosine hemisphere sampling requires much more samples per pixel in order to generate the same noiseless image.
+        </p>
+        <br>
+        <p><b>
+            Show at least one image with some other conductor material, replacing `eta` and `k`. Note that you should look up values for real data rather than modifying them arbitrarily. Tell us what kind of material your parameters correspond to. 
+        </b></p>
+        <div align="middle">
+            <table style="width:100%">
+              <tr align="center">
+                <td>
+                  <img src="images/dragon_zinc.png" align="middle" width="400px"/>
+                  <figcaption>Dragon made out of zinc</figcaption>
+                </td>
+              </tr>
+            </table>
+        </div>
+        <p>
+            Looking up the eta and k value of zinc on the website yields the eta value of 1.1181, 0.92678, 0.71515 and k value of 5.5577, 4.9657, 4.1696 at the frequency of red, green, and blue. The image is rendered with 64 samples per pixel and one sample per light at 0.5 alpha. The dragon gives a white color on the surface, but it is not very glossy since alpha is not very small.
+        </p>
+        <br>
+
+    </div>
+</body>
 </html>
+
